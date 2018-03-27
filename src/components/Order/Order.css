@@ -1,0 +1,28 @@
+.Order{
+    width: 80%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+.Itenary{
+    background: #c46b26;
+    padding: 10px;
+    text-transform: capitalize;
+}
+
+@media (min-width: 800px) {
+    .Burger{
+        width: 40%;
+    }
+    .Itenary{
+        width: 40%;
+    }
+
+    .Order{
+        display: flex;
+        justify-content: space-between;
+    }
+}
