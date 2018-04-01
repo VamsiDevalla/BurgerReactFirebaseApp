@@ -74,8 +74,6 @@ class BurgerBuilder extends Component{
                 purchaseContinued={this.purchaseContinuedHandler}
                 price={this.props.burgerPrice}
             />
-
-            // if(this.state.loading) orderSummery=<Spinner/>
         }
 
         return(
