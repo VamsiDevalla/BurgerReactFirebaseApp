@@ -9,6 +9,7 @@ import Model from '../../components/UI/Model/Model'
 import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from '../../HOC/WithErrorHandler/WithErrorHandler'
+import * as actions from "../../Store/actions/index";
 
 
 
@@ -20,13 +21,6 @@ class BurgerBuilder extends Component{
     }
 
     componentDidMount(){
-        // axios.get('/Ingredients.json')
-        //     .then(response=>{
-        //         this.setState({ingredients:response.data})
-        //     })
-        //     .catch(err =>{
-        //         this.setState({error:true})
-        //     })
         this.props.onInitIngredients()
     }
 
@@ -49,18 +43,7 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinuedHandler=()=>{
-        //alert("you continued")
-
-        // const queryParam=[]
-        // for(let i in this.state.ingredients){
-        //     queryParam.push(encodeURIComponent(i)+'='+encodeURIComponent(this.state.ingredients[i]))
-        //     queryParam.push('price=' + this.state.burgerPrice)
-        // }
-        // const queryString=queryParam.join('&')
-        // this.props.history.push({
-        //    pathname: '/checkout',
-        //     search: '?'+queryString
-        // })
+        this.props.onInitPurchase()
         this.props.history.push('/checkout')
     }
 
@@ -116,9 +99,10 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch => {
     return{
-        onIngredientAdded: (ingName)=>dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName)=>dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredients: ()=>dispatch(burgerBuilderActions.initIngredients())
+        onIngredientAdded: (ingName)=>dispatch(actions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName)=>dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: ()=>dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     }
 }
 
