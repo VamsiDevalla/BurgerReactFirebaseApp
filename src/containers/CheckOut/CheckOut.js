@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import CheckOutSummery from '../../components/CheckOutSummry/CheckOutSummry'
 import ContactData from './ContactData/ContactData'
-import {Route} from 'react-router-dom'
+import {Route,Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 class CheckOut extends Component{
@@ -15,14 +15,17 @@ class CheckOut extends Component{
     }
 
     render(){
-        console.log(this.props)
+        let summery = <Redirect to='/'/>
+        if(this.props.ings){
+            summery=(<CheckOutSummery
+                ingredients={this.props.ings}
+                onCheckoutCanceled={this.checkoutCanceledHandler}
+                onCheckoutContinued={this.checkoutContinuedHandler}
+            />)
+        }
         return(
             <div>
-                <CheckOutSummery
-                    ingredients={this.props.ings}
-                    onCheckoutCanceled={this.checkoutCanceledHandler}
-                    onCheckoutContinued={this.checkoutContinuedHandler}
-                />
+                {summery}
                 <Route path={this.props.match.path+'/contact-data'}
                        component={ContactData}
                 />
@@ -33,7 +36,7 @@ class CheckOut extends Component{
 
 const mapStateToProps = state =>{
     return{
-        ings: state.ingredients
+        ings: state.burgerBuilder.ingredients
     }
 }
 
