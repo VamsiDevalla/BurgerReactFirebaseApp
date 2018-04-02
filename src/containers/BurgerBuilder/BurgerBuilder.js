@@ -1,6 +1,5 @@
 import React,{ Component } from 'react';
 import {connect} from 'react-redux'
-import * as burgerBuilderActions from '../../Store/actions/index'
 import axios from '../../axios-orders'
 import Aux from '../../HOC/Auxilary';
 import Burger from  '../../components/Burger/Burger'
