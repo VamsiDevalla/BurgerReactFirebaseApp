@@ -22,6 +22,21 @@ export const authFail = (error) =>{
     }
 }
 
+export const logOut = () =>{
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
+
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch =>{
+        setTimeout(()=>{
+          dispatch(logOut())
+        },expirationTime*1000)
+    }
+
+}
+
 export const auth = (email,password,isSignUp)=>{
     return dispatch =>{
         dispatch(authStart())
@@ -36,6 +51,7 @@ export const auth = (email,password,isSignUp)=>{
         axios.post(url,authdata)
             .then(res =>{
                 dispatch(authSuccess(res.data.idToken,res.data.localId))
+                dispatch(checkAuthTimeout(3600))
             })
             .catch(err =>{
                 dispatch(authFail(err.response.data.error))
