@@ -43,7 +43,7 @@ export const auth = (email,password,isSignUp)=>{
         const authdata ={
             email: email,
             password: password,
-            resturnSecureToken: true
+            returnSecureToken: true
         }
         let url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDwcLqBfNybGl57SYjRdMVJPW97RuQyshg"
         if(!isSignUp)
@@ -51,7 +51,8 @@ export const auth = (email,password,isSignUp)=>{
         axios.post(url,authdata)
             .then(res =>{
                 dispatch(authSuccess(res.data.idToken,res.data.localId))
-                dispatch(checkAuthTimeout(3600))
+                console.log(res)
+                dispatch(checkAuthTimeout(res.data.expiresIn))
             })
             .catch(err =>{
                 dispatch(authFail(err.response.data.error))
